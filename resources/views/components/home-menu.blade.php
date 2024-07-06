@@ -38,7 +38,7 @@
         wire:navigate
         wire:transition
     >
-        <x-icons.users class="h-6 w-6 xsm:mr-3" />
-        <span class="hidden xsm:inline">{{ __('Users') }}</span>
+        <x-icons.magnifying-glass class="h-6 w-6 xsm:mr-3" />
+        <span class="hidden xsm:inline">{{ __('Search') }}</span>
     </a>
 </div>
