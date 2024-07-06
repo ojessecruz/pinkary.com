@@ -19,7 +19,7 @@ Route::view('/', 'welcome')->name('welcome');
 Route::view('/feed', 'home/feed')->name('home.feed');
 Route::view('/for-you', 'home/questions-for-you')->name('home.for_you');
 Route::view('/trending', 'home/trending-questions')->name('home.trending');
-Route::view('/users', 'home/users')->name('home.users');
+Route::view('/search', 'home/search')->name('home.search');
 
 Route::view('/terms', 'terms')->name('terms');
 Route::view('/privacy', 'privacy')->name('privacy');

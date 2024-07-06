@@ -12,7 +12,7 @@ use Illuminate\View\View;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
-final class Users extends Component
+final class Search extends Component
 {
     /**
      * The component's search query.
@@ -30,7 +30,7 @@ final class Users extends Component
      */
     public function render(): View
     {
-        return view('livewire.home.users', [
+        return view('livewire.home.search', [
             'users' => $this->query !== ''
                 ? $this->usersByQuery()
                 : $this->defaultUsers(),
