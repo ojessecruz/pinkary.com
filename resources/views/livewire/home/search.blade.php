@@ -9,7 +9,7 @@
                 x-init="if ($wire.focusInput) $refs.searchInput.focus()"
                 wire:model.live.debounce.500ms="query"
                 name="q"
-                placeholder="Search for users..."
+                placeholder="Search for users and content..."
                 class="w-full !rounded-2xl !bg-slate-950 !bg-opacity-80 py-3 pl-14"
             />
         </div>
