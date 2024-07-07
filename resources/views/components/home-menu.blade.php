@@ -5,7 +5,7 @@
         wire:navigate
         wire:transition
     >
-        <x-icons.home class="h-6 w-6 xsm:mr-3" />
+        <x-icons.home class="h-6 w-6 xsm:mr-2" />
         <span class="hidden xsm:inline">{{ __('Feed') }}</span>
     </a>
 
@@ -15,7 +15,7 @@
         wire:navigate
         wire:transition
     >
-        <x-icons.smile class="h-6 w-6 xsm:mr-3" />
+        <x-icons.smile class="h-6 w-6 xsm:mr-2" />
         <span class="hidden xsm:inline">{{ __('For you') }}</span>
     </a>
 
@@ -27,7 +27,7 @@
     >
         <x-icons.trending-solid
             color="currentColor"
-            class="h-6 w-6 xsm:mr-3"
+            class="h-6 w-6 xsm:mr-2"
         />
         <span class="hidden xsm:inline">{{ __('Trending') }}</span>
     </a>
@@ -38,7 +38,7 @@
         wire:navigate
         wire:transition
     >
-        <x-icons.magnifying-glass class="h-6 w-6 xsm:mr-3" />
+        <x-icons.magnifying-glass class="h-6 w-6 xsm:mr-2" />
         <span class="hidden xsm:inline">{{ __('Search') }}</span>
     </a>
 </div>
