@@ -40,6 +40,9 @@ final class Search extends Component
         ]);
     }
 
+    /**
+     * Returns the users and questions by query.
+     */
     private function searchByQuery(): Collection
     {
         return $this->usersByQuery()
@@ -70,7 +73,7 @@ final class Search extends Component
     /**
      * Returns the questions by query, ordered by the number of likes received.
      *
-     * @return Collection<int, User>
+     * @return Collection<int, Question>
      */
     private function questionsByQuery(): Collection
     {
