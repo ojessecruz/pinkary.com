@@ -21,21 +21,20 @@
         </section>
     @else
         <section class="max-w-2xl">
-            <ul class="flex flex-col gap-2">
+            <ul class="flex flex-col gap-3">
                 @foreach ($results as $result)
-                    @if ($result instanceof App\Models\Question)
-                        <li>
-                            <livewire:questions.show
-                                :questionId="$result->id"
-                                :key="'question-' . $result->id"
-                            />
-                        </li>
-                    @elseif ($result instanceof App\Models\User)
-                        @php($user = $result)
-                        <li>
-                            <x-found-avatar-with-name :user="$user"/>
-                        </li>
-                    @endif
+                    <li>
+                        @if ($result instanceof App\Models\Question)
+                            <div class="group rounded-2xl border border-slate-900 bg-slate-950 bg-opacity-80 pt-4 transition-colors">
+                                <livewire:questions.show
+                                        :questionId="$result->id"
+                                    :key="'question-' . $result->id"
+                                />
+                            </div>
+                        @elseif ($result instanceof App\Models\User)
+                            <x-found-avatar-with-name :user="$result"/>
+                        @endif
+                    </li>
                 @endforeach
             </ul>
         </section>
