@@ -44,8 +44,8 @@ final class Search extends Component
     {
         return $this->usersByQuery()
             ->when(
-                strlen($this->query) >= self::MIN_CONTENT_SEARCH_QUERY_LENGTH,
-                fn(Collection $collection): Collection => $collection->merge($this->questionsByQuery()),
+                mb_strlen($this->query) >= self::MIN_CONTENT_SEARCH_QUERY_LENGTH,
+                fn (Collection $collection): Collection => $collection->merge($this->questionsByQuery()),
             );
     }
 
