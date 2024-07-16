@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use Carbon\Carbon;
-use Database\Factories\LikeFactory;
+use Database\Factories\BookmarkFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,15 +19,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property-read User $user
  * @property-read Question $question
  */
-final class Like extends Model
+final class Bookmark extends Model
 {
-    /** @use HasFactory<LikeFactory> */
+    /** @use HasFactory<BookmarkFactory> */
     use HasFactory;
 
     /**
-     * The question that the like belongs to.
+     * The question that the bookmark belongs to.
      *
-     * @return BelongsTo<Question, Like>
+     * @return BelongsTo<Question, Bookmark>
      */
     public function question(): BelongsTo
     {
@@ -35,9 +35,9 @@ final class Like extends Model
     }
 
     /**
-     * The user that the like belongs to.
+     * The user that the bookmark belongs to.
      *
-     * @return BelongsTo<User, Like>
+     * @return BelongsTo<User, Bookmark>
      */
     public function user(): BelongsTo
     {

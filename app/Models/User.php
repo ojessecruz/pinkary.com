@@ -6,6 +6,7 @@ namespace App\Models;
 
 use App\Contracts\Models\Viewable;
 use App\Enums\UserMailPreference;
+use Database\Factories\UserFactory;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -56,6 +57,7 @@ use Illuminate\Support\Facades\Storage;
  */
 final class User extends Authenticatable implements FilamentUser, MustVerifyEmail, Viewable
 {
+    /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
     /**
@@ -83,6 +85,16 @@ final class User extends Authenticatable implements FilamentUser, MustVerifyEmai
     public function canAccessPanel(Panel $panel): bool
     {
         return $this->hasVerifiedEmail() && ($this->email === 'enunomaduro@gmail.com' || $this->email === 'mrpunyapal@gmail.com');
+    }
+
+    /**
+     * Get the user's bookmarks.
+     *
+     * @return HasMany<Bookmark>
+     */
+    public function bookmarks(): HasMany
+    {
+        return $this->hasMany(Bookmark::class);
     }
 
     /**
