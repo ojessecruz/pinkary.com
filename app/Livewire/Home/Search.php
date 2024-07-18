@@ -114,7 +114,8 @@ final class Search extends Component
         $famousUsers = Cache::remember('top-50-users', now()->endOfDay(), fn (): array => User::query()
             ->whereHas('links', function (Builder $query): void {
                 $query->where('url', 'like', '%twitter.com%')
-                    ->orWhere('url', 'like', '%github.com%');
+                    ->orWhere('url', 'like', '%github.com%')
+                    ->orWhere('url', 'like', '%://x.com%');
             })
             ->whereNotIn('id', $except->pluck('id'))
             ->withCount(['questionsReceived as answered_questions_count' => function (Builder $query): void {
@@ -141,7 +142,8 @@ final class Search extends Component
         return User::query()
             ->whereHas('links', function (Builder $query): void {
                 $query->where('url', 'like', '%twitter.com%')
-                    ->orWhere('url', 'like', '%github.com%');
+                    ->orWhere('url', 'like', '%github.com%')
+                    ->orWhere('url', 'like', '%://x.com%');
             })
             ->where(function (Builder $query): void {
                 $query->where('is_verified', true)
