@@ -1,3 +1,15 @@
+## Version 1.24.1
+> 18 July, 2024
+
+- Internal improvements and bug fixes.
+
+## Version 1.24
+> 18 July, 2024
+
+- Adds edit links
+- Trending logic improvements
+- Internal improvements and bug fixes
+
 ## Version 1.23.5
 > 16 July, 2024
 
