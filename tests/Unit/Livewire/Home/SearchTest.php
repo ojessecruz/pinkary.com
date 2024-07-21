@@ -219,7 +219,7 @@ test('search for questions when query at least 3 characters', function () {
         'name' => 'Nuno Maduro',
         'email_verified_at' => now(),
     ]);
-    
+
     Question::factory()->create([
         'content' => 'How to start?',
         'answer' => 'Hello world!',
@@ -246,7 +246,7 @@ test('returns up to 4 questions in welcome search with enough matching users', f
         'content' => 'Who created Pest?',
         'answer' => 'Nuno Maduro',
     ]);
-    
+
     $component = Livewire::test(Search::class);
 
     $component->set('welcomeSearch', true);
@@ -272,7 +272,7 @@ test('returns more questions in welcome search with less than 6 matching users',
         'content' => 'Who created Pest?',
         'answer' => 'Nuno Maduro',
     ]);
-    
+
     $component = Livewire::test(Search::class);
 
     $component->set('welcomeSearch', true);
