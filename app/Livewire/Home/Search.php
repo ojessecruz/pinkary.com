@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Collection as SupportCollection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Url;
 use Livewire\Component;
 
@@ -32,6 +33,7 @@ final class Search extends Component
     /**
      * Indicates if the search result is for the welcome page.
      */
+    #[Locked]
     public bool $welcomeSearch = false;
 
     /**
