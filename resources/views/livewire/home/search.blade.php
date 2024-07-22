@@ -25,12 +25,10 @@
                 @foreach ($results as $result)
                     <li>
                         @if ($result instanceof App\Models\Question)
-                            <div class="group rounded-2xl border border-slate-900 bg-slate-950 bg-opacity-80 pt-4 transition-colors">
-                                <livewire:questions.show
-                                        :questionId="$result->id"
-                                    :key="'question-' . $result->id"
-                                />
-                            </div>
+                            <livewire:questions.show
+                                :questionId="$result->id"
+                                :key="'question-' . $result->id"
+                            />
                         @elseif ($result instanceof App\Models\User)
                             <x-found-avatar-with-name :user="$result"/>
                         @endif
