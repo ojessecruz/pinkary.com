@@ -7,14 +7,13 @@ namespace App\Livewire\Questions;
 use App\Models\User;
 use App\Rules\MaxUploads;
 use App\Rules\NoBlankCharacters;
-use App\Rules\VerifiedOnly;
 use Illuminate\Http\Request;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Illuminate\Validation\Rules\File;
 use Illuminate\View\View;
-use Intervention\Image\ImageManager;
+use Imagick;
 use Livewire\Attributes\Computed;
 use Livewire\Attributes\Locked;
 use Livewire\Attributes\On;
@@ -33,13 +32,13 @@ final class Create extends Component
      * Max number of images allowed.
      */
     #[Locked]
-    public int $uploadLimit = 1;
+    public int $uploadLimit = 3;
 
-    #[Locked]
     /**
      * Max file size allowed.
      */
-    public int $maxFileSize = 2048;
+    #[Locked]
+    public int $maxFileSize = 1024 * 8;
 
     /**
      * The component's user ID.
@@ -90,7 +89,6 @@ final class Create extends Component
             rules: [
                 'images' => [
                     'bail',
-                    new VerifiedOnly(),
                     new MaxUploads($this->uploadLimit),
                 ],
                 'images.*' => [
@@ -100,7 +98,7 @@ final class Create extends Component
                 ],
             ],
             messages: [
-                'images.*.image' => 'The file must be a an image.',
+                'images.*.image' => 'The file must be an image.',
                 'images.*.mimes' => 'The image must be a file of type: :values.',
                 'images.*.max' => 'The image may not be greater than :max kilobytes.',
             ]
@@ -148,6 +146,17 @@ final class Create extends Component
     public function maxContentLength(): int
     {
         return $this->isSharingUpdate ? 1000 : 255;
+    }
+
+    /**
+     * Get the draft key.
+     */
+    #[Computed]
+    public function draftKey(): string
+    {
+        return filled($this->parentId)
+            ? "reply_{$this->parentId}"
+            : 'post_new';
     }
 
     /**
@@ -260,12 +269,17 @@ final class Create extends Component
     public function optimizeImage(string $path): void
     {
         $imagePath = Storage::disk('public')->path($path);
-        $manager = ImageManager::imagick();
+        $imagick = new Imagick($imagePath);
 
-        $image = $manager->read($imagePath);
-        $image->scaleDown(1000, 1000);
+        $imagick->resizeImage(1000, 1000, Imagick::FILTER_LANCZOS, 1, true);
 
-        $image->save($imagePath, quality: 80);
+        $imagick->stripImage();
+
+        $imagick->setImageCompressionQuality(80);
+        $imagick->writeImage($imagePath);
+
+        $imagick->clear();
+        $imagick->destroy();
     }
 
     /**
