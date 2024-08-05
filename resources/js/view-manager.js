@@ -1,11 +1,12 @@
-<div x-data="{
+const viewManager = () => ({
     viewedPosts: [],
     addViewedPost(postId) {
+        alert('addViewedPost');
         this.viewedPosts = [...this.viewedPosts, postId];
     },
     sendViewedPosts() {
         let data = JSON.parse(localStorage.getItem('viewedPosts')) || [];
-        let previousViewedPosts = data.filter(function(post) {
+        let previousViewedPosts = data.filter(function (post) {
             if (post === null) {
                 return false;
             }
@@ -17,7 +18,7 @@
         this.viewedPosts = [];
         if (viewedPosts.length > 0) {
             this.$wire.call('updateViews', viewedPosts);
-            viewedPosts = viewedPosts.map(function(postId) {
+            viewedPosts = viewedPosts.map(function (postId) {
                 return {
                     postId: postId,
                     dateTime: new Date().getTime()
@@ -28,6 +29,10 @@
         }
     },
     init() {
+        window.addEventListener('post-viewed', (event) => {
+            this.addViewedPost(event.detail.postId);
+        });
+
         setInterval(() => {
             this.sendViewedPosts();
         }, 5000);
@@ -50,5 +55,6 @@
         });
         // todo: check for edge cases
     }
-}" x-on:post-viewed.window="addViewedPost($event.detail.postId)">
-</div>
+});
+
+export { viewManager }

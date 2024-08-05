@@ -59,4 +59,7 @@ Alpine.data('usesDynamicAutocomplete', usesAutocomplete);
 import {lightBox} from './light-box.js';
 Alpine.data('lightBox',lightBox);
 
+import {viewManager} from './view-manager.js';
+Alpine.data('viewManager',viewManager);
+
 Livewire.start()

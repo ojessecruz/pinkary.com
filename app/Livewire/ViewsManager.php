@@ -7,7 +7,6 @@ namespace App\Livewire;
 use App\Jobs\IncrementViews;
 use App\Models\Question;
 use Illuminate\Support\Collection;
-use Illuminate\View\View;
 use Livewire\Component;
 
 final class ViewsManager extends Component
@@ -30,8 +29,10 @@ final class ViewsManager extends Component
     /**
      * Render the component.
      */
-    public function render(): View
+    public function render(): string
     {
-        return view('livewire.views-manager');
+        return <<<'HTML'
+            <div x-data="viewManager"></div>
+        HTML;
     }
 }
