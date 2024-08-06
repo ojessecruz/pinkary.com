@@ -1,7 +1,6 @@
 const viewManager = () => ({
     viewedPosts: [],
     addViewedPost(postId) {
-        alert('addViewedPost');
         this.viewedPosts = [...this.viewedPosts, postId];
     },
     sendViewedPosts() {
