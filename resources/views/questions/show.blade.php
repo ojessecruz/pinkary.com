@@ -41,6 +41,5 @@
 
             <livewire:questions.show :questionId="$question->id" :in-thread="true" :commenting="true" />
         </div>
-        <livewire:views-manager />
     </div>
 </x-app-layout>

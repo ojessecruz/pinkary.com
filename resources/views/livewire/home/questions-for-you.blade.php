@@ -21,8 +21,6 @@
                 :paginator="$forYouQuestions"
                 message="There are no more questions to load, or you have scrolled too far."
             />
-
-            <livewire:views-manager />
         </section>
     @endif
 </div>
