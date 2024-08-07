@@ -1,10 +1,8 @@
 const viewManager = () => ({
-    maxViewedPosts: 10,
-    canBeViewedIn: 2 * 60 * 60 * 1000, // 2 hours
     viewedPosts: [],
     addViewedPost(postId) {
         this.viewedPosts = [...this.viewedPosts, postId];
-        if (this.viewedPosts.length >= this.maxViewedPosts) {
+        if (this.viewedPosts.length >= 10) {
             this.sendViewedPosts();
         }
     },
@@ -14,12 +12,14 @@ const viewManager = () => ({
             if (post === null) {
                 return false;
             }
-            return new Date().getTime() - post.dateTime < this.canBeViewedIn;
+            const twoHours = 2 * 60 * 60 * 1000;
+            return new Date().getTime() - post.dateTime < twoHours;
         });
         let previousViewedPostIds = previousViewedPosts.map(post => post.postId);
         let viewedPosts = this.viewedPosts.filter(postId => !previousViewedPostIds.includes(postId));
         this.viewedPosts = [];
         if (viewedPosts.length > 0) {
+            console.log('Sending viewed posts to server', viewedPosts);
             this.$wire.call('updateViews', viewedPosts);
             viewedPosts = viewedPosts.map(function (postId) {
                 return {
@@ -36,7 +36,7 @@ const viewManager = () => ({
             this.addViewedPost(event.detail.postId);
         });
 
-        window.addEventListener('livewire:navigate', () => {
+        document.addEventListener('livewire:navigate', () => {
             this.sendViewedPosts();
         });
 
