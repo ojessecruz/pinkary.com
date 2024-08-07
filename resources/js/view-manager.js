@@ -1,7 +1,12 @@
 const viewManager = () => ({
+    maxViewedPosts: 10,
+    canBeViewedIn: 2 * 60 * 60 * 1000, // 2 hours
     viewedPosts: [],
     addViewedPost(postId) {
         this.viewedPosts = [...this.viewedPosts, postId];
+        if (this.viewedPosts.length >= this.maxViewedPosts) {
+            this.sendViewedPosts();
+        }
     },
     sendViewedPosts() {
         let data = JSON.parse(localStorage.getItem('viewedPosts')) || [];
@@ -9,8 +14,7 @@ const viewManager = () => ({
             if (post === null) {
                 return false;
             }
-            const twoHours = 2 * 60 * 60 * 1000;
-            return new Date().getTime() - post.dateTime < twoHours;
+            return new Date().getTime() - post.dateTime < this.canBeViewedIn;
         });
         let previousViewedPostIds = previousViewedPosts.map(post => post.postId);
         let viewedPosts = this.viewedPosts.filter(postId => !previousViewedPostIds.includes(postId));
@@ -32,11 +36,6 @@ const viewManager = () => ({
             this.addViewedPost(event.detail.postId);
         });
 
-        setInterval(() => {
-            this.sendViewedPosts();
-        }, 5000);
-
-        // todo: check if this all are necessary
         document.addEventListener('livewire:navigate', () => {
             this.sendViewedPosts();
         });
@@ -45,14 +44,15 @@ const viewManager = () => ({
             this.sendViewedPosts();
         });
 
-        window.addEventListener('unload', () => {
-            this.sendViewedPosts();
+        window.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'hidden') {
+                this.sendViewedPosts();
+            }
         });
 
         window.addEventListener('popstate', () => {
             this.sendViewedPosts();
         });
-        // todo: check for edge cases
     }
 });
 
