@@ -36,7 +36,7 @@ const viewManager = () => ({
             this.addViewedPost(event.detail.postId);
         });
 
-        document.addEventListener('livewire:navigate', () => {
+        window.addEventListener('livewire:navigate', () => {
             this.sendViewedPosts();
         });
 
