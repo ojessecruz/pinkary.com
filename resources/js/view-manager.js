@@ -19,7 +19,6 @@ const viewManager = () => ({
         let viewedPosts = this.viewedPosts.filter(postId => !previousViewedPostIds.includes(postId));
         this.viewedPosts = [];
         if (viewedPosts.length > 0) {
-            console.log('Sending viewed posts to server', viewedPosts);
             this.$wire.call('updateViews', viewedPosts);
             viewedPosts = viewedPosts.map(function (postId) {
                 return {
